@@ -1,0 +1,4 @@
+
+<!-- without creating profile and without add the below func, there will be error in form submit -->
+web: node app.js
+<!-- the above tells heroku to use to use node instead of nodemon -->
