@@ -1,20 +1,47 @@
-// jshint esversion:6
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
+const ejs = require("ejs");
 
 const app = express();
 
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
-// for our styless.css, images etc to workon our server,we need to create a public folder and apply below function
 app.use(express.static('public'));
 
-app.get('/', function(req,res){
-  res.sendFile(__dirname + '/signup.html');
+app.get("/", function(req,res){
+  const today = new Date();
+  
+  const options ={
+    weekday: "long",
+    day: "numeric",
+    month:"long",
+    year:"numeric"
+  };
+
+  const onlyYear ={
+    year:"numeric"
+  };
+   
+  const day = today.toLocaleDateString("en-US", options);
+  const year = today.toLocaleDateString("en-US", onlyYear);
+  
+
+  res.render("home", {kindOfDay:day, year:year});
 });
 
-app.post('/', function(req,res){
+
+app.get("/newsletter", function(req,res){
+  const today = new Date();
+  const onlyYear ={
+    year:"numeric"
+  };   
+  const year = today.toLocaleDateString("en-US", onlyYear);
+
+  res.render("newsletter",{year:year});
+});
+
+app.post("/newsletter", function(req,res){
   var firstName = req.body.firstName;
   var lastName= req.body.lastName;
   var email = req.body.email;
@@ -70,22 +97,8 @@ app.post('/', function(req,res){
 });
 
 
-
-
-
-
 //for heroku or any hosting server to recognize our server 3000, we ought to add process.env to port 3000, see below func
 app.listen(process.env.PORT || 3000,function(){
   console.log('Server is running on PORT 3000');
 });
 
-
-//API KEY  babf8e70dffe1952c30ca25dfb188729-us4
-//unique id 270136c814
-
-// curl --request POST \
-// --url 'https://usX.api.mailchimp.com/3.0/lists' \
-// --user 'anystring:apikey' \
-// --header 'content-type: application/json' \
-// --data '{"name":"Freddie'\''s Favorite Hats","contact":{"company":"Mailchimp","address1":"675 Ponce De Leon Ave NE","address2":"Suite 5000","city":"Atlanta","state":"GA","zip":"30308","country":"US","phone":""},"permission_reminder":"You'\''re receiving this email because you signed up for updates about Freddie'\''s newest hats.","campaign_defaults":{"from_name":"Freddie","from_email":"freddie@freddiehats.com","subject":"","language":"en"},"email_type_option":true}' \
-// --include
