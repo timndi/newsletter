@@ -197,3 +197,42 @@ transition: all .3s;
 .newsletter-copyright{
   color: #b3a6a6;
 }
+
+
+@media (min-width: 768px) {
+
+}
+/* @media (min-width: 360px) {
+ 
+  .contact{
+    padding: 5rem;
+  }
+  .about{
+    margin-top: 2ream;
+  }
+  .row{
+    padding: 5rem;
+  }
+  div.footer-section.about{
+    margin: 5rem;
+  }
+  .tim{
+    width: 100px;
+  }
+} */
+@media only screen and (max-width: 360px){
+  .contact{
+  }
+
+  .row{
+    padding: 5rem;
+  }
+  div.footer-section.about{
+    width: 100%;
+w  }
+  .tim{
+    width: 80px;
+    height: 100px;
+    margin-top: 6rem;
+  }
+   }
